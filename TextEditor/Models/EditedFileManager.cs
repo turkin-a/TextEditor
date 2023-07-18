@@ -12,6 +12,7 @@ namespace TextEditor.Models
     public class EditedFileManager
     {
         private EditedFileStorage _storage = new EditedFileStorage();
+        private int _buffSize = 30;
 
         public bool AddFile(EditedFile editedFile)
         {
@@ -63,12 +64,11 @@ namespace TextEditor.Models
             List<Task> tasks = new List<Task>();
             foreach (var editedFile in EditedFileList)
             {
-                var task = new Task(() => FileProcessingAsync(editedFile));                
+                var task = new Task(() => FileProcessingAsync(editedFile));
                 tasks.Add(task);
                 task.Start();
             }
 
-            Thread.Sleep(3000);
             await Task.WhenAll(tasks);
             IsNotRunned = true;
             MessageBox.Show("Обработка завершена",
@@ -78,15 +78,15 @@ namespace TextEditor.Models
         }
         public async Task FileProcessingAsync(EditedFile editedFile)
         {            
-            using(TextReader textReader = new TextReader(editedFile.InputName))
+            using(TextReader textReader = new TextReader(editedFile.InputName, _buffSize))
             {
                 using (TextWriter textWriter = new TextWriter(editedFile.OutputName))
                 {
                     string inputLine = "";
-                    while (textReader.ReadNextLine(ref inputLine))
+                    while (textReader.ReadNextTextPart(ref inputLine))
                     {
                         StringEditor lineEditor = new StringEditor(editedFile);
-                        textWriter.WriteLine(lineEditor.Convert(inputLine));
+                        textWriter.WriteString(lineEditor.Convert(inputLine));
                     }
                 }                    
             }

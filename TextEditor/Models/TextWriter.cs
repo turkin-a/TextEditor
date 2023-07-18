@@ -15,9 +15,9 @@ namespace TextEditor.Models
         {
             _writer = new StreamWriter(fileName, false, Encoding.Default);
         }
-        public void WriteLine(string line)
+        public void WriteString(string line)
         {
-            _writer.WriteLine(line);
+            _writer.Write(line);
         }
         public void Dispose()
         {

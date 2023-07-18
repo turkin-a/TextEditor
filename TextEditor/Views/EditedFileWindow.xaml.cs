@@ -27,12 +27,15 @@ namespace TextEditor.Views
         {
             InitializeComponent();
             this._editedFileManager = manager;
-            this.DataContext = new EditedFileWindowViewModel(this, manager);
+            EditedFileWindowViewModel viewModel =  new EditedFileWindowViewModel(manager);
+            viewModel.EventCloseWindow += (sender, args) => { this.Close(); };
+            this.DataContext = viewModel;
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
+
     }
 }

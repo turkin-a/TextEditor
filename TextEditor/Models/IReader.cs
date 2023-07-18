@@ -8,6 +8,6 @@ namespace TextEditor.Models
 {
     interface IReader : IDisposable
     {
-        public bool ReadNextLine(ref string line);
+        public bool ReadNextTextPart(ref string line);
     }
 }

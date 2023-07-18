@@ -8,6 +8,6 @@ namespace TextEditor.Models
 {
     interface IWriter : IDisposable
     {
-        public void WriteLine(string line);
+        public void WriteString(string line);
     }
 }

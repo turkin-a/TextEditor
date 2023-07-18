@@ -14,11 +14,9 @@ namespace TextEditor.ViewModels
 {
     public class EditedFileWindowViewModel : ViewModelBase
     {
-        Window _addFileWindow;
         EditedFileManager _manager;
-        public EditedFileWindowViewModel(Window addFileWindow, EditedFileManager manager)
+        public EditedFileWindowViewModel(EditedFileManager manager)
         {
-            _addFileWindow = addFileWindow;
             _manager = manager;
             AddNewFile = new AddNewFileCommand(this, _manager);
             SetInputFileName = new SetInputFileNameCommand(this);
@@ -94,9 +92,7 @@ namespace TextEditor.ViewModels
             };
         }
 
-        public void CloseWindow()
-        {
-            _addFileWindow.Close();
-        }
+        public event EventHandler EventCloseWindow;
+        public void CloseWindow() => EventCloseWindow?.Invoke(this, EventArgs.Empty);
     }
 }

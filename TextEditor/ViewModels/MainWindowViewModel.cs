@@ -12,11 +12,9 @@ namespace TextEditor.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        Window _mainWindow;
         EditedFileManager _manager;
-        public MainWindowViewModel(Window window, EditedFileManager manager)
+        public MainWindowViewModel( EditedFileManager manager)
         {
-            _mainWindow = window;
             _manager = manager;
             RemoveFileName = new RemoveFileNameCommand(this, manager);
             RunFileProcessing = new RunFileProcessingCommand(this, manager);

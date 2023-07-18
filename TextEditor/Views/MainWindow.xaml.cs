@@ -29,7 +29,7 @@ namespace TextEditor.Views
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = new MainWindowViewModel(this, _editedFileManager);
+            this.DataContext = new MainWindowViewModel(_editedFileManager);
             EditFileNamesListBox.ItemsSource = _editedFileManager.EditedFileList;
         }
 
